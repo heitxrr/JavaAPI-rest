@@ -1,4 +1,5 @@
 package br.com.fiap.api_rest.dto;
 
-public record LivroResponse() {
+public record LivroResponse(String infoLivro) {
+
 }
