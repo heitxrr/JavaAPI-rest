@@ -1,7 +1,6 @@
 package br.com.fiap.api_rest.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -10,16 +9,10 @@ public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
-    @ManyToMany
-    // Tabela autor_livro
-    // Colunas id_livro, id_autor
-    // 1, 1
-    // 1, 2
-    // 5, 2
-    @JoinTable(name = "autor_livro",
-            joinColumns = @JoinColumn(name = "id_livro", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_autor", referencedColumnName = "id"))
+
+    @ManyToMany(mappedBy = "autores")
     private List<Livro> livros;
 
     public Long getId() {

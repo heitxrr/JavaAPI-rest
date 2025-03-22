@@ -1,23 +1,44 @@
 package br.com.fiap.api_rest.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 public class Livro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String titulo;
-    @ManyToMany(mappedBy = "livros")
-    private List<Autor> autores;
     private int preco;
-    private Categoria categoria;
     private String isbn;
-    @ManyToOne
-    @JoinColumn(name = "id_biblioteca")
-    private Biblioteca biblioteca;
+
+    @ManyToMany
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
+    private List<Autor> autores;
+
+    @ManyToMany
+    @JoinTable(
+            name = "livro_biblioteca",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "biblioteca_id")
+    )
+    private List<Biblioteca> bibliotecas;
+
+    @ManyToMany
+    @JoinTable(
+            name = "livro_categoria",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private List<Categoria> categorias;
+
+    // Getters e setters
 
     public Long getId() {
         return id;
@@ -51,14 +72,6 @@ public class Livro {
         this.preco = preco;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public String getIsbn() {
         return isbn;
     }
@@ -67,11 +80,19 @@ public class Livro {
         this.isbn = isbn;
     }
 
-    public Biblioteca getBiblioteca() {
-        return biblioteca;
+    public List<Biblioteca> getBibliotecas() {
+        return bibliotecas;
     }
 
-    public void setBiblioteca(Biblioteca biblioteca) {
-        this.biblioteca = biblioteca;
+    public void setBibliotecas(List<Biblioteca> bibliotecas) {
+        this.bibliotecas = bibliotecas;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 }

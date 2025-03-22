@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 public class Endereco {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String localizacao;
+
     @OneToOne(mappedBy = "endereco")
     private Biblioteca biblioteca;
 
